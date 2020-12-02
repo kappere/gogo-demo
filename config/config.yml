@@ -1,0 +1,9 @@
+server:
+  port: 8081
+log:
+  path: log/test2
+redis:
+  host: localhost
+  port: 6379
+  password:
+external: 
