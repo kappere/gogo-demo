@@ -26,7 +26,7 @@ func init() {
 }
 
 // 查询用户
-func (u *DemoController) QueryHandler(c *context.Context) *context.Response {
+func (u *DemoController) QueryHandler(c *context.Context) interface{} {
 	id, err := strconv.Atoi(c.Query("id"))
 	if err != nil {
 		logger.Error("%s", err.Error())
@@ -37,4 +37,15 @@ func (u *DemoController) QueryHandler(c *context.Context) *context.Response {
 		return c.Success(nil)
 	}
 	return c.Success(demo)
+}
+
+// 查询用户页面
+func (u *DemoController) QueryHandler2(c *context.Context) interface{} {
+	id, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		logger.Error("%s", err.Error())
+		return c.Render("test.html", nil)
+	}
+	demo := u.demoService.GetDemoById(id)
+	return c.Render("test.html", demo)
 }

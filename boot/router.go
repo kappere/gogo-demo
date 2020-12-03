@@ -13,6 +13,7 @@ func InitRouter() {
 	context.RegistInitializer(func() {
 		rt.Group("/demo", func(group *router.RouterGroup) {
 			group.Get("/query", controller.DemoController_, controller.DemoController_.QueryHandler)
+			group.Get("/queryPage", controller.DemoController_, controller.DemoController_.QueryHandler2)
 		})
 	})
 }

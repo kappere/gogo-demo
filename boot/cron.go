@@ -7,5 +7,5 @@ import (
 )
 
 func InitCron() {
-	task.NewTask("0/10 * * * * *", apptask.DemoTask{})
+	task.NewTask("0/10 * * * * *", apptask.DemoTask_)
 }

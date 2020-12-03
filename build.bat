@@ -1,6 +1,9 @@
 @echo off
 del /Q assets
-go-assets-builder.exe config -p assets -o assets/assets.go
+go-assets-builder.exe resources -p assets -o assets/assets.go
 @echo Package assets success
-go build
+if not exist build (
+    mkdir build
+)
+go build -o build/
 @echo Build success
