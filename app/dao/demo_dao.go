@@ -22,5 +22,9 @@ func NewDemoDao(db *gorm.DB) *DemoDao {
 func (dao *DemoDao) GetDemoById(id int) *model.Demo {
 	demo := model.Demo{}
 	dao.Db.Take(&demo, id)
+	nameNew := "2123333346"
+	dao.Db.Create(&model.Demo{
+		Name: &nameNew,
+	})
 	return &demo
 }

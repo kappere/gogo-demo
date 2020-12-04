@@ -11,22 +11,21 @@ import (
 
 type DemoService struct {
 	component.Service
+	demoDao *dao.DemoDao
 }
 
-var DemoService_ *DemoService
+var DemoServiceBean = &DemoService{}
 
 func init() {
-	context.RegistInitializer(func() {
-		DemoService_ = &DemoService{
-			*component.NewBaseService(),
-		}
+	context.Inject(func() {
+		DemoServiceBean.Service = *component.NewBaseService()
+		DemoServiceBean.demoDao = dao.NewDemoDao(DemoServiceBean.Service.Db)
 	})
 }
 
 func (s *DemoService) GetDemoById(id int) *model.Demo {
 	demo := s.DoTransaction(func(tx *gorm.DB) interface{} {
-		userDao := dao.NewDemoDao(tx)
-		return userDao.GetDemoById(id)
+		return dao.NewDemoDao(tx).GetDemoById(id)
 	}).(*model.Demo)
 	return demo
 }

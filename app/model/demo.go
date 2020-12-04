@@ -10,10 +10,10 @@ type Demo struct {
 	Wxid *string `json:"wxid"`
 }
 
-func (u *Demo) String() string {
-	return strconv.Itoa(*u.Id) + " " + *u.Name + " " + *u.Wxid
+func (Demo) TableName() string {
+	return "demo"
 }
 
-func (Demo) TableName() string {
-	return "sys_user"
+func (u *Demo) String() string {
+	return strconv.Itoa(*u.Id) + " " + *u.Name + " " + *u.Wxid
 }

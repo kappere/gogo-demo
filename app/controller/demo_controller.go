@@ -14,20 +14,19 @@ type DemoController struct {
 	demoService *service.DemoService
 }
 
-var DemoController_ *DemoController
+var DemoControllerBean = &DemoController{}
 
 func init() {
-	context.RegistInitializer(func() {
-		DemoController_ = &DemoController{
-			Controller:  *component.NewBaseController(),
-			demoService: service.DemoService_,
-		}
+	context.Inject(func() {
+		DemoControllerBean.Controller = *component.NewBaseController()
+		DemoControllerBean.demoService = service.DemoServiceBean
 	})
 }
 
 // 查询用户
 func (u *DemoController) QueryHandler(c *context.Context) interface{} {
 	id, err := strconv.Atoi(c.Query("id"))
+
 	if err != nil {
 		logger.Error("%s", err.Error())
 		return c.Error("参数错误")

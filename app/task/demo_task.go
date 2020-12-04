@@ -5,11 +5,11 @@ import (
 	"wataru.com/gogo/logger"
 )
 
-var DemoTask_ = &DemoTask{}
-
 type DemoTask struct {
 	task.Task
 }
+
+var DemoTaskBean = &DemoTask{}
 
 func (t *DemoTask) Process() {
 	logger.Info("DemoTask running!")

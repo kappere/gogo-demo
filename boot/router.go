@@ -12,8 +12,8 @@ func InitRouter() {
 	rt := gogo.HttpServer().Router()
 	context.RegistInitializer(func() {
 		rt.Group("/demo", func(group *router.RouterGroup) {
-			group.Get("/query", controller.DemoController_, controller.DemoController_.QueryHandler)
-			group.Get("/queryPage", controller.DemoController_, controller.DemoController_.QueryHandler2)
+			group.Get("/query", controller.DemoControllerBean, controller.DemoControllerBean.QueryHandler)
+			group.Get("/queryPage", controller.DemoControllerBean, controller.DemoControllerBean.QueryHandler2)
 		})
 	})
 }
