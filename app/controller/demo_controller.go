@@ -48,3 +48,23 @@ func (u *DemoController) QueryHandler2(c *context.Context) interface{} {
 	demo := u.demoService.GetDemoById(id)
 	return c.Render("test.html", demo)
 }
+
+type test1 struct {
+	Aaa int
+	Bbb string
+}
+
+// 查询用户
+func (u *DemoController) QueryHandler3(c *context.Context) interface{} {
+	id, err := strconv.Atoi(c.Query("id"))
+	ttt := test1{}
+	c.BindJSON(&ttt)
+	logger.Info("body: %v", ttt)
+
+	if err != nil {
+		logger.Error("%s", err.Error())
+		return c.Error("参数错误")
+	}
+	demo := u.demoService.GetDemoById(id)
+	return c.Success(demo)
+}

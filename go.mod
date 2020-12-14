@@ -6,6 +6,7 @@ replace wataru.com/gogo => ../wataru.com/gogo
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/jessevdk/go-assets v0.0.0-20160921144138-4f4301a06e15
 	github.com/jinzhu/gorm v1.9.16
 	github.com/kr/pretty v0.1.0 // indirect

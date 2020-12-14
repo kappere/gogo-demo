@@ -1,3 +1,4 @@
+mkdir -p assets
 rm -rf assets/*
 
 # # Don't pack resources

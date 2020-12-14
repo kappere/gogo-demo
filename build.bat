@@ -1,4 +1,7 @@
 @echo off
+if not exist assets (
+    mkdir assets
+)
 del /Q assets
 
 @REM @REM Don't pack resources

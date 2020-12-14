@@ -14,6 +14,7 @@ func InitRouter() {
 		rt.Group("/demo", func(group *router.RouterGroup) {
 			group.Get("/query", controller.DemoControllerBean, controller.DemoControllerBean.QueryHandler)
 			group.Get("/queryPage", controller.DemoControllerBean, controller.DemoControllerBean.QueryHandler2)
+			group.Post("/postQuery", controller.DemoControllerBean, controller.DemoControllerBean.QueryHandler3)
 		})
 	})
 }
