@@ -4,22 +4,27 @@ import (
 	"gogo-demo/app/service"
 	"strconv"
 
+	"wataru.com/gogo"
 	"wataru.com/gogo/frame/component"
 	"wataru.com/gogo/frame/context"
+	"wataru.com/gogo/frame/router"
 	"wataru.com/gogo/logger"
 )
 
 type DemoController struct {
-	component.Controller
-	demoService *service.DemoService
+	*component.Controller `autowired:""`
+	DemoService           *service.DemoService `autowired:""`
 }
 
-var DemoControllerBean = &DemoController{}
-
 func init() {
-	context.Inject(func() {
-		DemoControllerBean.Controller = *component.NewBaseController()
-		DemoControllerBean.demoService = service.DemoServiceBean
+	context.RegistBean(&DemoController{})
+}
+
+func (u *DemoController) Initialize() {
+	gogo.HttpServer().Router().Group("/demo", func(group *router.RouterGroup) {
+		group.Get("/query", u.QueryHandler)
+		group.Get("/queryPage", u.QueryHandler2)
+		group.Post("/postQuery", u.QueryHandler3)
 	})
 }
 
@@ -31,7 +36,7 @@ func (u *DemoController) QueryHandler(c *context.Context) interface{} {
 		logger.Error("%s", err.Error())
 		return c.Error("参数错误")
 	}
-	demo := u.demoService.GetDemoById(id)
+	demo := u.DemoService.GetDemoById(id)
 	if demo == nil {
 		return c.Success(nil)
 	}
@@ -45,7 +50,7 @@ func (u *DemoController) QueryHandler2(c *context.Context) interface{} {
 		logger.Error("%s", err.Error())
 		return c.Render("test.html", nil)
 	}
-	demo := u.demoService.GetDemoById(id)
+	demo := u.DemoService.GetDemoById(id)
 	return c.Render("test.html", demo)
 }
 
@@ -65,6 +70,6 @@ func (u *DemoController) QueryHandler3(c *context.Context) interface{} {
 		logger.Error("%s", err.Error())
 		return c.Error("参数错误")
 	}
-	demo := u.demoService.GetDemoById(id)
+	demo := u.DemoService.GetDemoById(id)
 	return c.Success(demo)
 }

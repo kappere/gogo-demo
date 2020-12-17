@@ -5,15 +5,20 @@ import (
 
 	"github.com/jinzhu/gorm"
 	"wataru.com/gogo/frame/component"
+	"wataru.com/gogo/frame/context"
 )
 
 type DemoDao struct {
-	component.Dao
+	*component.Dao `autowired:""`
+}
+
+func init() {
+	context.RegistBean(&DemoDao{})
 }
 
 func NewDemoDao(db *gorm.DB) *DemoDao {
 	return &DemoDao{
-		component.Dao{
+		&component.Dao{
 			Db: db,
 		},
 	}

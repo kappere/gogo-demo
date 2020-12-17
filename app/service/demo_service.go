@@ -10,17 +10,12 @@ import (
 )
 
 type DemoService struct {
-	component.Service
-	demoDao *dao.DemoDao
+	*component.Service `autowired:""`
+	DemoDao            *dao.DemoDao `autowired:""`
 }
 
-var DemoServiceBean = &DemoService{}
-
 func init() {
-	context.Inject(func() {
-		DemoServiceBean.Service = *component.NewBaseService()
-		DemoServiceBean.demoDao = dao.NewDemoDao(DemoServiceBean.Service.Db)
-	})
+	context.RegistBean(&DemoService{})
 }
 
 func (s *DemoService) GetDemoById(id int) *model.Demo {
